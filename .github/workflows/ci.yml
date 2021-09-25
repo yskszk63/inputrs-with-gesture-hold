@@ -13,6 +13,9 @@ jobs:
         - libinput_repo: "https://gitlab.freedesktop.org/JoseExposito/libinput.git"
           libinput_branch: "hold_get_base_event"
           tag: mr697
+        - libinput_repo: "https://gitlab.freedesktop.org/libinput/libinput.git"
+          libinput_branch: "main"
+          tag: main
     runs-on: ubuntu-latest
     env:
       INPUTRS_REV: "9f019d130e727bd6e18889189bb3a31cd5bd16cd"
