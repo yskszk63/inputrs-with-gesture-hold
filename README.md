@@ -22,3 +22,5 @@ docker run --rm --device /dev/input --mount type=bind,source=/run/udev,target=/r
 ```
 # docker run --rm --device /dev/input --mount type=bind,source=/run/udev,target=/run/udev,readonly ghcr.io/yskszk63/inputrs-with-gesture-hold:mr697 /app
 ```
+
+Use `docker kill` to stop the container.
