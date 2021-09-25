@@ -1,0 +1,39 @@
+name: Ci
+
+on: push
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+        - libinput_repo: "https://gitlab.freedesktop.org/libinput/libinput.git"
+          libinput_branch: "1.19.0"
+          tag: 1.19.0
+        - libinput_repo: "https://gitlab.freedesktop.org/JoseExposito/libinput.git"
+          libinput_branch: "hold_get_base_event"
+          tag: mr697
+    runs-on: ubuntu-latest
+    env:
+      INPUTRS_REV: "9f019d130e727bd6e18889189bb3a31cd5bd16cd"
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login Github Container Registry
+      run: echo "${TOKEN}" | docker login ghcr.io -u USERNAME --password-stdin
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Docker image
+      run: |
+        docker build \
+          -t ghcr.io/"${DOCKER_REPO}:${TAG}" \
+          --build-arg LIBINPUT_REPO="${LIBINPUT_REPO}" \
+          --build-arg LIBINPUT_BRANCH="${LIBINPUT_BRANCH}" \
+          --build-arg INPUTRS_REV="${INPUTRS_REV}" \
+          .
+        docker push ghcr.io/"${DOCKER_REPO}:${TAG}"
+      env:
+        LIBINPUT_REPO: ${{ matrix.libinput_repo }}
+        LIBINPUT_BRANCH: ${{ matrix.libinput_branch }}
+        DOCKER_REPO: ${{ env.GITHUB_REPOSITORY }}
