@@ -27,13 +27,13 @@ jobs:
     - name: Build Docker image
       run: |
         docker build \
-          -t ghcr.io/"${DOCKER_REPO}:${TAG}" \
+          -t ghcr.io/"${GITHUB_REPOSITORY}:${TAG}" \
           --build-arg LIBINPUT_REPO="${LIBINPUT_REPO}" \
           --build-arg LIBINPUT_BRANCH="${LIBINPUT_BRANCH}" \
           --build-arg INPUTRS_REV="${INPUTRS_REV}" \
           .
-        docker push ghcr.io/"${DOCKER_REPO}:${TAG}"
+        docker push ghcr.io/"${GITHUB_REPOSITORY}:${TAG}"
       env:
         LIBINPUT_REPO: ${{ matrix.libinput_repo }}
         LIBINPUT_BRANCH: ${{ matrix.libinput_branch }}
-        DOCKER_REPO: ${{ env.GITHUB_REPOSITORY }}
+        TAG: ${{ matrix.tag }}
