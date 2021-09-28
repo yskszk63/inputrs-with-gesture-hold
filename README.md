@@ -10,6 +10,12 @@ with libinput v1.19.0
 docker run --rm --device /dev/input --mount type=bind,source=/run/udev,target=/run/udev,readonly ghcr.io/yskszk63/inputrs-with-gesture-hold:1.19.0 /app
 ```
 
+with libinput v1.19.1
+
+```
+docker run --rm --device /dev/input --mount type=bind,source=/run/udev,target=/run/udev,readonly ghcr.io/yskszk63/inputrs-with-gesture-hold:1.19.1 /app
+```
+
 main branch
 
 ```
